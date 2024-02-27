@@ -24,8 +24,8 @@ class TitleAnalysis extends Analysis
         return [
             static::TITLE_IS_HOME                => [
                 'The page title should be changed from "Home"; ' .
-                'that title almost always reduces click-through rate. ' .
-                'Please retain "Home" as the Navigation Label, however.',
+                    'that title almost always reduces click-through rate. ' .
+                    'Please retain "Home" as the Navigation Label, however.',
                 'danger'
             ],
             static::TITLE_TOO_SHORT              => ['The page title is too short', 'danger'],
@@ -37,7 +37,7 @@ class TitleAnalysis extends Analysis
             static::TITLE_NO_FOCUS_KEYWORD       => ['The page title does not contain the focus keyword', 'warning'],
             static::TITLE_FOCUS_KEYWORD_POSITION => [
                 'The page title contains the focus keyword but is not at the beginning; ' .
-                'consider moving it to the beginning',
+                    'consider moving it to the beginning',
                 'warning'
             ],
             static::TITLE_SUCCESS                => [
@@ -55,8 +55,8 @@ class TitleAnalysis extends Analysis
      */
     public function run()
     {
-        $title   = $this->getPage()->Title;
-        $keyword = $this->getPage()->FocusKeyword;
+        $title   = $this->getPage()->Title ?? '';
+        $keyword = $this->getPage()->FocusKeyword ?? '';
 
         if (strtolower($title) == 'home') {
             return static::TITLE_IS_HOME;
