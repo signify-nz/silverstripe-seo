@@ -18,7 +18,6 @@ use simple_html_dom\simple_html_dom;
  */
 class GoogleSearchPreview extends LiteralField
 {
-
     /**
      * @var int
      */
