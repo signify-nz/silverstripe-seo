@@ -22,7 +22,7 @@ use SilverStripe\View\Requirements;
  */
 class PageHealthExtension extends DataExtension
 {
-    const EMPTY_HTML = '<p></p>';
+    public const EMPTY_HTML = '<p></p>';
 
     /**
      * @var string|null

@@ -15,7 +15,9 @@ use SilverStripe\View\ArrayData;
  */
 abstract class Analysis
 {
-    use Injectable, Configurable;
+    use Injectable;
+
+    use Configurable;
 
     protected $domParser;
 
@@ -140,7 +142,7 @@ abstract class Analysis
         if (count($responses[$result]) !== 2) {
             throw new \InvalidArgumentException(sprintf(
                 'Expected the response for result %s to be an array containing two items: ' .
-                'first is the message & second is the indicator status: danger, warning, success, default',
+                    'first is the message & second is the indicator status: danger, warning, success, default',
                 $result
             ));
         }
@@ -191,7 +193,7 @@ abstract class Analysis
     {
         throw new \RuntimeException(sprintf(
             'You must override the run method in %s and return an integer as a response that references '
-            . 'a key in your array that your responses() override returns',
+                . 'a key in your array that your responses() override returns',
             static::class
         ));
     }

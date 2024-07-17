@@ -14,7 +14,9 @@ use SilverStripe\SiteConfig\SiteConfig;
  */
 class FacebookMetaGenerator
 {
-    use Injectable, Configurable;
+    use Injectable;
+
+    use Configurable;
 
     /**
      * @var string|null
