@@ -8,9 +8,9 @@ namespace QuinnInteractive\Seo\Analysis;
  */
 class FocusKeywordContentAnalysis extends Analysis
 {
-    const FOCUS_KEYWORD_NOT_FOUND = 0;
-    const FOCUS_KEYWORD_SUCCESS   = 1;
-    const FOCUS_KEYWORD_UNSET     = -1;
+    public const FOCUS_KEYWORD_NOT_FOUND = 0;
+    public const FOCUS_KEYWORD_SUCCESS   = 1;
+    public const FOCUS_KEYWORD_UNSET     = -1;
 
     private static $hidden_levels = [
         'default'
@@ -39,12 +39,12 @@ class FocusKeywordContentAnalysis extends Analysis
     public function getContentFromDom()
     {
         $dom    = $this->getPage()->getRenderedHtmlDomParser();
-        
+
         if (!$dom) {
-           return '';
+            return '';
         }
 
-        
+
         $result = $dom->find('body', 0);
 
         return strtolower(strip_tags($result ? $result->innertext() : ''));
@@ -55,7 +55,7 @@ class FocusKeywordContentAnalysis extends Analysis
      */
     public function getKeyword()
     {
-        return strtolower($this->getPage()->FocusKeyword);
+        return strtolower($this->getPage()->FocusKeyword ?? '');
     }
 
     /**

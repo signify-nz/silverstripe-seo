@@ -20,7 +20,9 @@ use SilverStripe\SiteConfig\SiteConfig;
  */
 class Seo
 {
-    use Injectable, Configurable;
+    use Injectable;
+
+    use Configurable;
 
     /**
      * Collates all content fields from {@link seoContentFields()} into a single string. Which makes it very important
@@ -167,12 +169,16 @@ class Seo
         $generator = TwitterMetaGenerator::create();
         $generator->setTitle($owner->TwitterPageTitle ?: $owner->Title);
         $generator->setDescription($owner->TwitterPageDescription ?: $owner->MetaDescription ?: $owner->Content);
-        $generator->setImageUrl(($owner->TwitterPageImage()->exists())
-            ? $owner->TwitterPageImage()->AbsoluteLink()
-            : null);
-        if (PageSeoExtension::config()->get('enable_creator_tag') &&
+        $generator->setImageUrl(
+            ($owner->TwitterPageImage()->exists())
+                ? $owner->TwitterPageImage()->AbsoluteLink()
+                : null
+        );
+        if (
+            PageSeoExtension::config()->get('enable_creator_tag') &&
             $owner->Creator()->exists() &&
-            $owner->Creator()->TwitterAccountName) {
+            $owner->Creator()->TwitterAccountName
+        ) {
             $generator->setCreator($owner->Creator()->TwitterAccountName);
         }
 

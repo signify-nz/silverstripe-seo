@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @phpcs:disable PSR1.Methods.CamelCapsMethodName
+ */
+
 namespace QuinnInteractive\Seo\Extensions;
 
 use QuinnInteractive\Seo\Builders\FacebookMetaGenerator;
@@ -124,7 +128,7 @@ class PageSeoExtension extends DataExtension
                     ->setFolderName('seo'),
                 TextareaField::create('FacebookPageDescription', 'Description')
                     ->setAttribute('placeholder', $this->getOwner()->MetaDescription ?:
-                     $this->getOwner()->dbObject('Content')->LimitCharacters(297))
+                        $this->getOwner()->dbObject('Content')->LimitCharacters(297))
                     ->setRightTitle($suppressMessaging
                         ? ''
                         : 'If blank, inherits meta description if it exists ' .
@@ -145,7 +149,7 @@ class PageSeoExtension extends DataExtension
                     ->setRightTitle($suppressMessaging
                         ? ''
                         : 'If blank, inherits meta description if it exists ' .
-                            'or gets the first 297 characters from content')
+                        'or gets the first 297 characters from content')
                     ->setTargetLength(200, 160, 320),
             ])
         ], 'Metadata');

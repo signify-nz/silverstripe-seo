@@ -8,13 +8,13 @@ namespace QuinnInteractive\Seo\Analysis;
  */
 class TitleAnalysis extends Analysis
 {
-    const TITLE_FOCUS_KEYWORD_POSITION = 4;
-    const TITLE_IS_HOME                = -1;
-    const TITLE_NO_FOCUS_KEYWORD       = 3; // only checked if the focus keyword has been defined
-    const TITLE_OK_BUT_SHORT           = 1;
-    const TITLE_SUCCESS                = 5;
-    const TITLE_TOO_LONG               = 2;
-    const TITLE_TOO_SHORT              = 0;
+    public const TITLE_FOCUS_KEYWORD_POSITION = 4;
+    public const TITLE_IS_HOME                = -1;
+    public const TITLE_NO_FOCUS_KEYWORD       = 3; // only checked if the focus keyword has been defined
+    public const TITLE_OK_BUT_SHORT           = 1;
+    public const TITLE_SUCCESS                = 5;
+    public const TITLE_TOO_LONG               = 2;
+    public const TITLE_TOO_SHORT              = 0;
 
     /**
      * @return array
@@ -24,8 +24,8 @@ class TitleAnalysis extends Analysis
         return [
             static::TITLE_IS_HOME                => [
                 'The page title should be changed from "Home"; ' .
-                'that title almost always reduces click-through rate. ' .
-                'Please retain "Home" as the Navigation Label, however.',
+                    'that title almost always reduces click-through rate. ' .
+                    'Please retain "Home" as the Navigation Label, however.',
                 'danger'
             ],
             static::TITLE_TOO_SHORT              => ['The page title is too short', 'danger'],
@@ -37,7 +37,7 @@ class TitleAnalysis extends Analysis
             static::TITLE_NO_FOCUS_KEYWORD       => ['The page title does not contain the focus keyword', 'warning'],
             static::TITLE_FOCUS_KEYWORD_POSITION => [
                 'The page title contains the focus keyword but is not at the beginning; ' .
-                'consider moving it to the beginning',
+                    'consider moving it to the beginning',
                 'warning'
             ],
             static::TITLE_SUCCESS                => [
@@ -55,8 +55,8 @@ class TitleAnalysis extends Analysis
      */
     public function run()
     {
-        $title   = $this->getPage()->Title;
-        $keyword = $this->getPage()->FocusKeyword;
+        $title   = $this->getPage()->Title ?? '';
+        $keyword = $this->getPage()->FocusKeyword ?? '';
 
         if (strtolower($title) == 'home') {
             return static::TITLE_IS_HOME;

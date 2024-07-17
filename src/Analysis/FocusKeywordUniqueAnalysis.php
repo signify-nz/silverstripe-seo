@@ -8,16 +8,16 @@ namespace QuinnInteractive\Seo\Analysis;
  */
 class FocusKeywordUniqueAnalysis extends Analysis
 {
-    const FOCUS_KEYWORD_INUSE   = 0;
-    const FOCUS_KEYWORD_SUCCESS = 1;
-    const FOCUS_KEYWORD_UNSET   = -1;
+    public const FOCUS_KEYWORD_INUSE   = 0;
+    public const FOCUS_KEYWORD_SUCCESS = 1;
+    public const FOCUS_KEYWORD_UNSET   = -1;
 
     /**
      * @return string
      */
     public function getKeyword()
     {
-        return strtolower($this->getPage()->FocusKeyword);
+        return strtolower($this->getPage()->FocusKeyword ?? '');
     }
 
     /**
@@ -33,7 +33,7 @@ class FocusKeywordUniqueAnalysis extends Analysis
             ],
             static::FOCUS_KEYWORD_INUSE   => [
                 'The focus keyword you want this page to rank for is already being used on another page; ' .
-                'consider changing that if you truly want this page to rank',
+                    'consider changing that if you truly want this page to rank',
                 'danger'
             ],
             static::FOCUS_KEYWORD_SUCCESS => ['The focus keyword has never been used before—nice!', 'success']

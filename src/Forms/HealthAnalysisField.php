@@ -17,7 +17,6 @@ use SilverStripe\View\Requirements;
  */
 class HealthAnalysisField extends LiteralField
 {
-
     /**
      * @var \Page
      */
