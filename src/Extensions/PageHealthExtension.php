@@ -9,7 +9,7 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\ToggleCompositeField;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\VersionedAdmin\Controllers\CMSPageHistoryViewerController;
 use SilverStripe\VersionedAdmin\Controllers\HistoryViewerController;
 use SilverStripe\View\Requirements;
@@ -20,7 +20,7 @@ use SilverStripe\View\Requirements;
  *
  * @property string FocusKeyword
  */
-class PageHealthExtension extends DataExtension
+class PageHealthExtension extends Extension
 {
     public const EMPTY_HTML = '<p></p>';
 
@@ -57,7 +57,11 @@ class PageHealthExtension extends DataExtension
                 $this->owner->Form = false;
             }
             Requirements::clear(); // we only want the HTML, not any of the js or css
-            $this->renderedHtml = $controllerName::singleton()->render($this->owner);
+            $controller = $controllerName::create($this->owner);
+
+            $this->renderedHtml = $controller
+                ->getViewer('index')
+                ->process($controller);
             Requirements::restore(); // put the js/css requirements back when we're done
         }
 
@@ -94,8 +98,9 @@ class PageHealthExtension extends DataExtension
     /**
      * @param FieldList $fields
      */
-    public function updateCMSFields(FieldList $fields)
+    public function updateCMSFields(FieldList $fields): void
     {
+        $fields->removeByName('FocusKeyword');
         if (
             Controller::curr() instanceof HistoryViewerController ||
             Controller::curr() instanceof CMSPageHistoryViewerController
