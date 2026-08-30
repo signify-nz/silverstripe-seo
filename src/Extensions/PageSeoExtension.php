@@ -17,7 +17,7 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\ToggleCompositeField;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
 use SilverStripe\VersionedAdmin\Controllers\HistoryViewerController;
@@ -35,7 +35,7 @@ use SilverStripe\VersionedAdmin\Controllers\HistoryViewerController;
  * @method Image FacebookPageImage()
  * @method Member|MemberExtension Creator()
  */
-class PageSeoExtension extends DataExtension
+class PageSeoExtension extends Extension
 {
     use Configurable;
 
@@ -76,7 +76,7 @@ class PageSeoExtension extends DataExtension
      *
      * @param $tags
      */
-    public function MetaTags(&$tags)
+    protected function updateMetaTags(string &$tags): void
     {
         $tags = explode(PHP_EOL, $tags);
         $tags = array_merge(
@@ -92,10 +92,8 @@ class PageSeoExtension extends DataExtension
         $tags = implode(PHP_EOL, $tags);
     }
 
-    public function onBeforeWrite()
+    protected function onBeforeWrite(): void
     {
-        parent::onBeforeWrite();
-
         if (!$this->getOwner()->ID && !$this->getOwner()->Creator()->exists() && $member = Security::getCurrentUser()) {
             $this->getOwner()->CreatorID = $member->ID;
         }
@@ -104,9 +102,18 @@ class PageSeoExtension extends DataExtension
     /**
      * @param FieldList $fields
      */
-    public function updateCMSFields(FieldList $fields)
+    protected function updateCMSFields(FieldList $fields): void
     {
-        parent::updateCMSFields($fields);
+        $fields->removeByName([
+            'FacebookPageType',
+            'FacebookPageTitle',
+            'FacebookPageDescription',
+            'TwitterPageTitle',
+            'TwitterPageDescription',
+            'FacebookPageImage',
+            'TwitterPageImage',
+            'Creator',
+        ]);
         $suppressMessaging = false;
         if (Controller::curr() instanceof HistoryViewerController) { // avoid cluttering the history comparison UI
             $suppressMessaging = true;

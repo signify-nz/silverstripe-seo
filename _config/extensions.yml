@@ -1,7 +1,8 @@
 ---
 Name: silverstripe-seo
 ---
-Page:
+
+SilverStripe\CMS\Model\SiteTree:
   extensions:
     - QuinnInteractive\Seo\Extensions\PageHealthExtension
     - QuinnInteractive\Seo\Extensions\PageSeoExtension
